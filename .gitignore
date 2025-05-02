@@ -1,8 +1,8 @@
-search/degrees/__pycache__
+search/degrees/__pycache__/
 search/degrees/venv
 
-search/tictactoe/__pycache__
-search/tictactoe/venv
+search/tictactoe/__pycache__/
+search/tictactoe/venv/
 
-knowledge/tictactoe/__pycache__
-knowledge/tictactoe/venv
+knowledge/knights/__pycache__/
+knowledge/knights/venv/
