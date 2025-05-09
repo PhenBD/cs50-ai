@@ -201,6 +201,8 @@ class MinesweeperAI():
         for i in range(cell[0] - 1, cell[0] + 2):
             for j in range(cell[1] - 1, cell[1] + 2):
                 if 0 <= i < self.height and 0 <= j < self.width:
+                    if (i, j) in self.mines:
+                        count -= 1
                     if (i, j) not in self.safes and (i, j) not in self.mines and (i, j) not in self.moves_made:
                         cells.add((i, j))
         
@@ -208,11 +210,7 @@ class MinesweeperAI():
         
         self.knowledge.append(sentence)
         
-        modified = True
-        
-        while modified:
-            modified = False
-            
+        while True:
             # 4
             safes_to_mark = set()
             mines_to_mark = set()
@@ -225,11 +223,13 @@ class MinesweeperAI():
 
             for scell in safes_to_mark:
                 self.mark_safe(scell)
-                modified = True
+            if len(safes_to_mark) != 0:
+                continue
 
             for mcell in mines_to_mark:
                 self.mark_mine(mcell)
-                modified = True
+            if len(mines_to_mark) != 0:
+                continue
             
             # 5
             for sentence1 in self.knowledge:
@@ -240,10 +240,11 @@ class MinesweeperAI():
                         print(f'new sentence: {sentence2.cells-sentence1.cells} = {sentence2.count-sentence1.count}')
                         print(f'sentence1: {sentence1.cells} = {sentence1.count}')
                         print(f'sentence2: {sentence2.cells} = {sentence2.count}')
-                        for sentence in self.knowledge:
-                            print(f'sentence: {sentence}')
-                        modified = True
-                        break
+                        continue
+            
+            for sentence in self.knowledge:
+                print(f'sentence: {sentence}')
+            break
                     
         
         
